@@ -1,5 +1,10 @@
-const express = require("express");
-const mongoose = require('mongoose');
+const express   = require("express");
+const mongoose  = require('mongoose');
+
+const users     = require('./routes/api/users');
+const posts     = require('./routes/api/posts');
+const profile   = require('./routes/api/profile');
+
 
 const app = express();
 
@@ -18,6 +23,11 @@ mongoose
 app.get("/", (req, res) => {
   res.send("cool website yeah");
 });
+
+// Use Routes
+app.use('/api/users', users);
+app.use('/api/posts', posts);
+app.use('/api/profile', profile);
 
 // first one is for deploying on Heroku server
 const port = process.env.PORT || 5000;
