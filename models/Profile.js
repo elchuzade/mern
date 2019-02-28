@@ -14,22 +14,26 @@ const ProfileSchema = new Schema(
     bio: { type: String },
     githubusername: { type: String },
     experience: [
-      { title: { type: String, required: true } },
-      { company: { type: String, required: true } },
-      { location: { type: String } },
-      { from: { type: Date, required: true } },
-      { to: { type: Date } }, // not required coz it could be till now
-      { current: { type: Boolean, default: false } }, // if its not triggered by user it will be set default
-      { description: { type: String } }
+      {
+        title: { type: String, required: true },
+        company: { type: String, required: true },
+        location: { type: String },
+        from: { type: Date, required: true },
+        to: { type: Date }, // not required coz it could be till now
+        current: { type: Boolean, default: false }, // if its not triggered by user it will be set default
+        description: { type: String }
+      }
     ],
     education: [
-      { school: { type: String, required: true } },
-      { degree: { type: String, required: true } },
-      { filedofstudy: { type: String, required: true } },
-      { from: { type: Date, required: true } },
-      { to: { type: Date } }, // not required coz it could be till now
-      { current: { type: Boolean, default: false } }, // if its not triggered by user it will be set default
-      { description: { type: String } }
+      {
+        school: { type: String, required: true },
+        degree: { type: String, required: true },
+        filedofstudy: { type: String, required: true },
+        from: { type: Date, required: true },
+        to: { type: Date }, // not required coz it could be till now
+        current: { type: Boolean, default: false }, // if its not triggered by user it will be set default
+        description: { type: String }
+      }
     ],
     social: {
       youtube: { type: String },
