@@ -28,7 +28,7 @@ const ProfileSchema = new Schema(
       {
         school: { type: String, required: true },
         degree: { type: String, required: true },
-        filedofstudy: { type: String, required: true },
+        fieldofstudy: { type: String, required: true },
         from: { type: Date, required: true },
         to: { type: Date }, // not required coz it could be till now
         current: { type: Boolean, default: false }, // if its not triggered by user it will be set default
