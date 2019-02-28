@@ -3,8 +3,11 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
+// Load validation
+const validateProfileInput = require("../../validation/profile");
+
 // Load Models
-const Profile = require("../../models/Progile");
+const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
 // @route GET api/profile/test
@@ -24,6 +27,7 @@ router.get(
   (req, res) => {
     const errors = {};
     Profile.findOne({ user: req.user.id })
+      .populate("user", ["name", "avatar"])
       .then(profile => {
         if (!profile) {
           errors.noprofile = "There is no profile associated with this user";
@@ -35,6 +39,46 @@ router.get(
   }
 );
 
+// @route POST api/profile/handle/:handle
+// @desc Get profile by handle
+// @access Public
+router.get("/handle/:handle", (req, res) => {
+  const errors = {};
+
+  Profile.findOne({ handle: req.params.handle })
+    .populate("user", ["name", "avatar"])
+    .then(profile => {
+      if (!profile) {
+        errors.noprofile = "There is no profile associated with this user";
+        res.status(404).json(errors);
+      }
+      res.json(profile);
+    })
+    .catch(err => res.status(404).json(err));
+});
+
+// @route POST api/profile/user/:user_id
+// @desc Get profile by handle
+// @access Public
+router.get("/user/:user_id", (req, res) => {
+  const errors = {};
+
+  Profile.findOne({ user: req.params.user_id })
+    .populate("user", ["name", "avatar"])
+    .then(profile => {
+      if (!profile) {
+        errors.noprofile = "There is no profile associated with this user";
+        res.status(404).json(errors);
+      }
+      res.json(profile);
+    })
+    .catch(err =>
+      res
+        .status(404)
+        .json({ profile: "There is no profile associated with this user" })
+    );
+});
+
 // @route POST api/profile
 // @desc Create or Edit user profile
 // @access Private
@@ -42,6 +86,15 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }), // protected route because of passport.authenticate
   (req, res) => {
+    // Validating start
+    const { errors, isValid } = validateProfileInput(req.body);
+    // Check validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+    // Validating end
+
     // Get fields from user
     const profileFields = {};
     profileFields.user = req.user.id;
@@ -80,7 +133,7 @@ router.post(
       } else {
         // Create new profile
         // Check if the handle exists not to create again (handle is for seo)
-        profile.findOne({ handle: profileFields.handle }).then(profile => {
+        Profile.findOne({ handle: profileFields.handle }).then(profile => {
           if (profile) {
             errors.handle = "That handle already exists";
             res.status(400).json(errors);
