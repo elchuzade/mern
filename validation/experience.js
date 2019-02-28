@@ -14,13 +14,10 @@ module.exports = function validateExperienceInput(data) {
   // so practically all of the empty, null, undefined are treated as empty string
 
   if (Validator.isEmpty(data.title)) {
-    errors.title = "Job title field is required";
+    errors.title = "Job title is required";
   }
   if (Validator.isEmpty(data.company)) {
-    errors.company = "Company field is required";
-  }
-  if (Validator.isEmpty(data.from)) {
-    errors.from = "From date field is required";
+    errors.company = "Company name is required";
   }
   if (Validator.isEmpty(data.from)) {
     errors.from = "From date is required";

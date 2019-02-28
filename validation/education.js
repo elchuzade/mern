@@ -14,10 +14,10 @@ module.exports = function validateEducationInput(data) {
   // so practically all of the empty, null, undefined are treated as empty string
 
   if (Validator.isEmpty(data.school)) {
-    errors.school = "School name field is required";
+    errors.school = "School name is required";
   }
   if (Validator.isEmpty(data.degree)) {
-    errors.degree = "Degree name field is required";
+    errors.degree = "Degree name is required";
   }
   if (Validator.isEmpty(data.fieldofstudy)) {
     errors.fieldofstudy = "Field of study is required";

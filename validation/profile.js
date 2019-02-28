@@ -11,12 +11,10 @@ module.exports = function validateProfileInput(data) {
 
   // here we check if it is an empty string then we send an error message
   // so practically all of the empty, null, undefined are treated as empty string
-
-  if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
-    errors.handle = "Handle needs to be between 2 and 40 cahracters";
-  }
   if (Validator.isEmpty(data.handle)) {
     errors.handle = "Profile handle is required";
+  } else if (!Validator.isLength(data.handle, { min: 2, max: 40 })) {
+    errors.handle = "Handle needs to be between 2 and 40 cahracters";
   }
   if (Validator.isEmpty(data.status)) {
     errors.status = "Status field is required";

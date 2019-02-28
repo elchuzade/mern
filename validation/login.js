@@ -12,13 +12,12 @@ module.exports = function validateLoginInput(data) {
   // so practically all of the empty, null, undefined are treated as empty string
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = "Email field is required";
+    errors.email = "Email is required";
+  } else if (!Validator.isEmail(data.email)) {
+    errors.email = "Email is invalid";
   }
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Password field is required";
-  }
-  if (!Validator.isEmail(data.email)) {
-    errors.email = "Email is invalid";
+    errors.password = "Password is required";
   }
 
   return {
