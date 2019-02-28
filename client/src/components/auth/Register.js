@@ -16,6 +16,12 @@ class Register extends Component {
       errors: {}
     };
   }
+  // If a user is logged in he cant see the register page -> redirect to dashboard
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
