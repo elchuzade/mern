@@ -15,4 +15,8 @@ mainly sketches will be there
 games that get harder sa you are relaxed while playing and easier as you get nerveous while playing
 to make a perfect idle type game
 
+
+
+
+
 */
