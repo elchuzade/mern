@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
+import ProfileActions from './ProfileActions';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -21,14 +22,23 @@ class Dashboard extends Component {
       // Check if logged in user has already set a profile data
       if (Object.keys(profile).length > 0) {
         // Check if it is an empty object or soomething is there
-        dashboardContent = <h1>Dashboard is here</h1>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-m">
+              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+            </p>
+            <ProfileActions />
+          </div>
+        );
       } else {
         // User is logged in but has no profile
         dashboardContent = (
           <div>
             <p className="lead text-m">Welcome {user.name}</p>
             <p>You have not yet set up a profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-lg btn-info">Create Profile</Link>
+            <Link to="/create-profile" className="btn btn-lg btn-info">
+              Create Profile
+            </Link>
           </div>
         );
       }
