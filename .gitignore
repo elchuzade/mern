@@ -1,5 +1,5 @@
 /node_modules
-/config
+/config/keys_dev.js
 package-lock.json
 devconnector-theme.zip
 devconnector_theme
